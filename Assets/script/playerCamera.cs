@@ -8,14 +8,17 @@ public class playerCamera : MonoBehaviour
     [SerializeField] private float sensY;
 
     Camera cam;
+    
 
     float mouseX;
     float mouseY;
 
     float multiplier = 0.01f;
 
-    float xRotation;
-    float yRotation;
+
+    // 카메라에다 x로테이션값을 넣어주고 y는 플레이어에 넣어줌... 귀찮게 만들었네;
+    public float xRotation;
+    public float yRotation;
 
     private void Start()
     {//카메라를 자식으로 가져와서 전달하는 거라 함.
@@ -35,6 +38,8 @@ public class playerCamera : MonoBehaviour
         //벡터3랑 달라서 바꿔줘야하는걸로 알고있음. (오일러로)
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
+
+        
     }
 
     void MyInput()

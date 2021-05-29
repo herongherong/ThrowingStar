@@ -6,6 +6,13 @@ using UnityEngine;
 //Plai 유튜브 https://www.youtube.com/watch?v=LqnPeqoJRFY 참조
 public class Player : MonoBehaviour
 {
+
+    public GameObject Bullets;
+    public Transform BulletPos;
+
+   
+
+
     //캐릭터높이 정해줌 밑에 있는 isGround에서 사용
     float playerHeight = 2f;
 
@@ -30,6 +37,10 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>(); //리지드바디 컴포넌트 가져오기
         rb.freezeRotation = true;
+
+        
+        
+
     }
 
     private void Update()
@@ -38,7 +49,20 @@ public class Player : MonoBehaviour
         //닿지 않을떄도 있으니 확실하게 하려고 0.1f로 보완
         isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight / 2 + 0.1f);
         MyInput();
-        ControlDrag(); 
+        ControlDrag();
+
+        //총알 생성. xRotation을 카메라에서 받아야하는데..
+        if (Input.GetMouseButtonDown(0))
+        {//카메라에 x로테이션이 달려있어서 불릿 생성시 x회전이 전혀 들어가지 않음... 해결중
+            //playerCamera 에서 둘다 받아와서 추가했음.
+            playerCamera playercamera = GameObject.Find("PlayerFps").GetComponent<playerCamera>();
+            float xRotationTemp = playercamera.xRotation;
+            float yRotationTemp = playercamera.yRotation;
+            Quaternion pRotation = Quaternion.Euler(xRotationTemp, yRotationTemp, 0);
+
+            GameObject Bullet = Instantiate(Bullets, BulletPos.position, pRotation);
+            //GameObject Bullet = Instantiate(Bullets, BulletPos.position, transform.localRotation);
+        }
     }
 
     void MyInput() //입력처리용이라 함.

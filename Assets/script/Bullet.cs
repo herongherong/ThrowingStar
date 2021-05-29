@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     Vector3 offset;
     Transform tr;
 
-    bool isCollsion;
+    public bool isCollsion = false;
 
     public float bulletSpeed = 2;
     // Start is called before the first frame update
@@ -42,8 +42,8 @@ public class Bullet : MonoBehaviour
             TargetObj = GameObject.FindWithTag("Enemy");
             offset = TargetObj.transform.position - transform.position;
             isCollsion = true;
-            Destroy(gameObject, 3);
-            Destroy(TargetObj, 3);
+            //Destroy(gameObject);
+            //Destroy(TargetObj, 3);
         }
 
         if (other.tag == "Wall")
@@ -51,10 +51,12 @@ public class Bullet : MonoBehaviour
             TargetObj = GameObject.FindWithTag("Enemy");
             offset = TargetObj.transform.position - transform.position;
             isCollsion = true;
-            ExpBarrel();
-            Destroy(gameObject, 3);
+            //ExpBarrel();
+            //Destroy(gameObject);
+            //Debug.Log("col");
         }
 
+       
     }
 
     void ExpBarrel()
